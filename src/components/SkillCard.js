@@ -2,15 +2,15 @@ import React from 'react'
 
 import { TouchableOpacity, Text, StyleSheet } from 'react-native'
 
-function SkillCard() {
+function SkillCard({ skill }) {
   return (
     <TouchableOpacity
-      // key={skill}
+      key={skill}
       style={styles.buttonSkill}
       activeOpacity={0.7}
     >
       <Text style={styles.textSkill}>
-        {/* {skill} */} 
+        {skill}
       </Text>
     </TouchableOpacity>
   )
