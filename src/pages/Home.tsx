@@ -5,40 +5,51 @@ import {
   Text,
   TextInput,
   StyleSheet,
-  FlatList
+  FlatList,
+  Platform
 } from 'react-native'
 
 import { Button } from '../components/Button'
 import { SkillCard } from '../components/SkillCard'
 
+interface SkillData {
+  id: string;
+  name: string;
+}
+
 function Home() {
   const [newSkill, setNewSkill] = useState('')
-  const [mySkills, setMySkills] = useState([])
-  const [gretting, setGretting] = useState('')
+  const [mySkills, setMySkills] = useState<SkillData[]>([])
+  const [greeting, setGreeting] = useState('')
 
   function handleAddNewSkill() {
-    setMySkills([...mySkills, newSkill])
+    const data = {
+      id: String(new Date().getTime()),
+      name: newSkill
+    }
+
+    setMySkills([...mySkills, data])
   }
 
   useEffect(() => {
     const currentHour = new Date().getHours();
 
     if (currentHour < 12) {
-      setGretting('Bom Dia!')
+      setGreeting('Bom Dia!')
     } else if (currentHour >= 12 && currentHour < 18) {
-      setGretting('Boa tarde!')
+      setGreeting('Boa tarde!')
     } else {
-      setGretting('Boa Noite!')
+      setGreeting('Boa Noite!')
     }
   }, [])
 
   return (
     <>
       <View style={styles.container}>
-        
+
 
         <Text style={styles.title}>Bem-vindo, Janderson!</Text>
-        <Text style={styles.greetings}>{gretting}</Text>
+        <Text style={styles.greetings}>{greeting}</Text>
 
         <TextInput
           style={styles.input}
@@ -56,8 +67,8 @@ function Home() {
 
         <FlatList
           data={mySkills}
-          keyExtractor={item => item}
-          renderItem={({ item }) => <SkillCard skill={item} />}
+          keyExtractor={item => item.id}
+          renderItem={({ item }) => <SkillCard skill={item.name} />}
         />
 
       </View>
