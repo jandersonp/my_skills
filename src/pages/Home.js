@@ -35,6 +35,8 @@ function Home() {
   return (
     <>
       <View style={styles.container}>
+        
+
         <Text style={styles.title}>Bem-vindo, Janderson!</Text>
         <Text style={styles.greetings}>{gretting}</Text>
 
